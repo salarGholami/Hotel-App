@@ -21,13 +21,13 @@
 .headerSearchInput {
   padding: 0.7rem 0.5rem;
   font-size: 1rem;
-  background-color: rgb(54, 54, 54);
+  background-color: rgb(67, 67, 67);
   /* background-color: transparent; */
   /* border: 0.5px solid gray; */
-  border-radius: 5%;
+  border-radius: 15rem;
 }
 
- input[type="text"] {
+input[type="text"] {
   color: #efefef;
 }
 .headerSearchItem {
@@ -56,11 +56,11 @@
 }
 
 .guestOptions {
-  background-color: #fff;
-  box-shadow: 0 0 10px #efefef;
+  background-color: rgb(67, 67, 67);
+  /* box-shadow: 0 0 10px #efefef; */
   border-radius: 1rem;
   padding: 1rem;
-  border: 1px solid var(--text-100);
+  border: 0.5px solid gray;
   position: absolute;
   top: 2rem;
   width: 220px;
@@ -83,7 +83,8 @@
   padding: 0.5rem;
   border-radius: 0.5rem;
   color: var(--text-600);
-  background-color: var(--text-100);
+  border: 0.5px solid gray;
+  background-color: rgb(92,92,92);
 }
 .optionText {
   display: inline-block;
