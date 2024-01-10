@@ -6,10 +6,19 @@ function Header() {
   const [destination, setDestination] = useState("");
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
-    Adult: 1,
+    adult: 1,
     children: 0,
     room: 1,
   });
+
+  const handleOptions = (name, opration) => {
+    setOptions((prev) => {
+      return {
+        ...prev,
+        [name]: opration === "inc" ? options[name] + 1 : options[name] - 1,
+      };
+    });
+  };
 
   return (
     <div className="header">
@@ -34,9 +43,12 @@ function Header() {
         </div>
         <div className="headerSearchItem">
           <div id="optionDropDown" onClick={() => setOpenOptions(!openOptions)}>
-            1 adult &bull; 2 children &bull; 3 room
+            {options.adult} adult &bull; {options.children} children &bull;{" "}
+            {options.room} room
           </div>
-          {openOptions && <GuestOptionList options={options} />}
+          {openOptions && (
+            <GuestOptionList options={options} handleOptions={handleOptions} />
+          )}
           <span className="seperator"></span>
         </div>
         <div className="headerSearchItem">
@@ -51,26 +63,48 @@ function Header() {
 
 export default Header;
 
-function GuestOptionList() {
+function GuestOptionList({ options, handleOptions }) {
   return (
     <div className="guestOptions">
-      <OptionItem />
-      <OptionItem />
-      <OptionItem />
+      <OptionItem
+        type="adult"
+        options={options}
+        minLimit={1}
+        handleOptions={handleOptions}
+      />
+      <OptionItem
+        type="children"
+        options={options}
+        minLimit={0}
+        handleOptions={handleOptions}
+      />
+      <OptionItem
+        type="room"
+        options={options}
+        minLimit={1}
+        handleOptions={handleOptions}
+      />
     </div>
   );
 }
 
-function OptionItem() {
+function OptionItem({ options, type, minLimit, handleOptions }) {
   return (
     <div className="guestOptionItem">
-      <span className="otionText">Adult</span>
+      <span className="otionText">{type}</span>
       <div className="optionCounter">
-        <button className="optionCounterBtn ">
+        <button
+          className="optionCounterBtn"
+          disabled={options[type] <= minLimit}
+          onClick={() => handleOptions(type, "dec")}
+        >
           <HiMinus className="icon" />
         </button>
-        <span className="optionCounterNumber"> 2</span>
-        <button className="optionCounterBtn ">
+        <span className="optionCounterNumber">{options[type]}</span>
+        <button
+          className="optionCounterBtn "
+          onClick={() => handleOptions(type, "inc")}
+        >
           <HiPlus className="icon" />
         </button>
       </div>
