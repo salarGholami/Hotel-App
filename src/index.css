@@ -21,7 +21,9 @@ body {
   min-height: 100vh;
   padding: 1rem;
 }
-
+select option{
+  background-color: rgb(76, 76, 76);
+}
 * {
   margin: 0;
   padding: 0;

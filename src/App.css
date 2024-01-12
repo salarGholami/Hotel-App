@@ -84,7 +84,7 @@ input[type="text"] {
   border-radius: 0.5rem;
   color: var(--text-600);
   border: 0.5px solid gray;
-  background-color: rgb(92,92,92);
+  background-color: #5c5c5c;
 }
 .optionText {
   display: inline-block;
@@ -103,8 +103,46 @@ input[type="text"] {
   top: 50px;
   left: -5rem;
   z-index: 1002;
+  /* background-color: #e534 !important; */
+}
+.rdrCalendarWrapper {
+  background-color: transparent !important;
+  border: 1px solid #fff;
+}
+.rdrDateDisplayWrapper {
+  background-color: transparent !important;
+  border: 1px solid #fff;
+}
+.rdrDateDisplay {
+  background-color: transparent !important;
+}
+.rdrDateDisplayItem {
+  background-color: transparent !important;
+  border: 1px solid #fff !important;
+}
+.rdrDateDisplayItemActive {
+  border: 2px solid var(--primary-600) !important;
+}
+.rdrMonthAndYearPickers span {
+  background-color: transparent !important;
+  border: 1px solid #fff !important;
+}
+.rdrMonthAndYearPickers select {
+  background-color: transparent !important;
+  color: #7d888d !important;
+}
+.rdrMonthAndYearWrapper button {
+  background-color: #d55 + s !important;
+  border: 1px solid #fff !important;
 }
 
+.rdrDayDisabled {
+  background-color: rgb(58, 58, 58) !important;
+}
+.rdrDays {
+  background-color: rgb(75, 75, 75) !important;
+  
+}
 .dateIcon {
   color: var(--primary-700);
 }
