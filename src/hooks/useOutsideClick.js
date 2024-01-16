@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export default function useOutSideClick(ref, exceptionId, cb) {
+export default function useOutsideClick(ref, exceptionId, cb) {
   useEffect(() => {
     function handleOutsideClick(event) {
       if (
@@ -16,5 +16,5 @@ export default function useOutSideClick(ref, exceptionId, cb) {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [ref, cb]);
+  }, [ref, cb, exceptionId]);
 }

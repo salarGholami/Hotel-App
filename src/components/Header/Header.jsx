@@ -1,11 +1,11 @@
 import { MdLocationOn } from "react-icons/md";
 import { HiCalendar, HiMinus, HiPlus, HiSearch } from "react-icons/hi";
 import { useRef, useState } from "react";
-import useOutSideClick from "../../hooks/useOutSideClick";
+import useOutsideClick from "../../hooks/useOutsideClick";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
-import { format } from "date-fns/esm";
+import { format } from "date-fns";
 import {
   createSearchParams,
   useNavigate,
@@ -23,7 +23,6 @@ function Header() {
     children: 0,
     room: 1,
   });
-
   const [date, setDate] = useState([
     {
       startDate: new Date(),
@@ -32,25 +31,23 @@ function Header() {
     },
   ]);
   const [openDate, setOpenDate] = useState(false);
-
   const navigate = useNavigate();
 
-  const handleOptions = (name, opration) => {
+  const handleOptions = (name, operation) => {
     setOptions((prev) => {
       return {
         ...prev,
-        [name]: opration === "inc" ? options[name] + 1 : options[name] - 1,
+        [name]: operation === "inc" ? options[name] + 1 : options[name] - 1,
       };
     });
   };
-
-  const handeSearch = () => {
+  const handleSearch = () => {
     const encodedParams = createSearchParams({
       date: JSON.stringify(date),
       destination,
       options: JSON.stringify(options),
     });
-
+    //note : =>  setSearchParams(encodedParams);
     navigate({
       pathname: "/hotels",
       search: encodedParams.toString(),
@@ -66,7 +63,7 @@ function Header() {
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
             type="text"
-            placeholder="where to go"
+            placeholder="where to go?"
             className="headerSearchInput"
             name="destination"
             id="destination"
@@ -94,20 +91,21 @@ function Header() {
         </div>
         <div className="headerSearchItem">
           <div id="optionDropDown" onClick={() => setOpenOptions(!openOptions)}>
-            {options.adult} adult &bull; {options.children} children &bull;{" "}
+            {options.adult} adult &nbsp;&bull;&nbsp; {options.children} children
+            &nbsp;&bull;&nbsp;
             {options.room} room
           </div>
           {openOptions && (
             <GuestOptionList
-              options={options}
               setOpenOptions={setOpenOptions}
               handleOptions={handleOptions}
+              options={options}
             />
           )}
           <span className="seperator"></span>
         </div>
         <div className="headerSearchItem">
-          <button className="headerSearchBtn" onClick={handeSearch}>
+          <button className="headerSearchBtn" onClick={handleSearch}>
             <HiSearch className="headerIcon" />
           </button>
         </div>
@@ -115,31 +113,30 @@ function Header() {
     </div>
   );
 }
-
 export default Header;
 
 function GuestOptionList({ options, handleOptions, setOpenOptions }) {
-  const optionRef = useRef();
-  useOutSideClick(optionRef, "optionDropDown", () => setOpenOptions(false));
+  const optionsRef = useRef();
+  useOutsideClick(optionsRef, "optionDropDown", () => setOpenOptions(false));
   return (
-    <div className="guestOptions" ref={optionRef}>
+    <div className="guestOptions" ref={optionsRef}>
       <OptionItem
+        handleOptions={handleOptions}
         type="adult"
         options={options}
         minLimit={1}
-        handleOptions={handleOptions}
       />
       <OptionItem
+        handleOptions={handleOptions}
         type="children"
         options={options}
         minLimit={0}
-        handleOptions={handleOptions}
       />
       <OptionItem
+        handleOptions={handleOptions}
         type="room"
         options={options}
         minLimit={1}
-        handleOptions={handleOptions}
       />
     </div>
   );
@@ -148,19 +145,19 @@ function GuestOptionList({ options, handleOptions, setOpenOptions }) {
 function OptionItem({ options, type, minLimit, handleOptions }) {
   return (
     <div className="guestOptionItem">
-      <span className="otionText">{type}</span>
+      <span className="optionText">{type}</span>
       <div className="optionCounter">
         <button
+          onClick={() => handleOptions(type, "dec")}
           className="optionCounterBtn"
           disabled={options[type] <= minLimit}
-          onClick={() => handleOptions(type, "dec")}
         >
           <HiMinus className="icon" />
         </button>
         <span className="optionCounterNumber">{options[type]}</span>
         <button
-          className="optionCounterBtn "
           onClick={() => handleOptions(type, "inc")}
+          className="optionCounterBtn"
         >
           <HiPlus className="icon" />
         </button>

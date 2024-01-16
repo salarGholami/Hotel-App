@@ -14,7 +14,7 @@ export default function useFetch(url, query = "") {
         setData(data);
       } catch (err) {
         setData([]);
-        toast.error(err.message);
+        toast.error(err?.message);
       } finally {
         setIsLoading(false);
       }
