@@ -140,10 +140,7 @@ input[type="text"] {
 .rdrDayDisabled {
   background-color: rgb(58, 58, 58) !important;
 }
-.rdrDays {
-  /* background-color: rgb(75, 75, 75) !important; */
-  
-}
+
 .dateIcon {
   color: var(--primary-700);
 }
@@ -334,7 +331,7 @@ input[type="text"] {
 
 .bookmarkList .bookmarkItem.current-bookmark {
   border: 2px solid var(--primary-600);
-  background-color: var(--text-100);
+  background-color: rgb(76, 76, 76);
 }
 
 .currentBookmark h2 {
@@ -364,6 +361,7 @@ input[type="text"] {
   padding: 0.5rem;
   border-radius: 0.5rem;
   width: 100%;
+  background-color: rgb(76, 76, 76);
 }
 
 .buttons {
@@ -383,6 +381,7 @@ input[type="text"] {
 
 .btn--back {
   border: 1px solid var(--text-400);
+  color: #efefef;
 }
 
 .formControl .flag {

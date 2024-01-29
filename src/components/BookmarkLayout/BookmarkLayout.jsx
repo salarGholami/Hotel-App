@@ -1,6 +1,6 @@
-import Map from "../Map/Map";
 import { Outlet } from "react-router-dom";
-import { useBookmark } from "../context/BookMarkIstContext";
+import Map from "../Map/Map";
+import { useBookmark } from "../context/BookmarkListContext";
 
 function BookmarkLayout() {
   const { bookmarks } = useBookmark();
@@ -9,7 +9,7 @@ function BookmarkLayout() {
       <div className="sidebar">
         <Outlet />
       </div>
-      <Map markerLoacation={bookmarks} />
+      <Map markerLocations={bookmarks} />
     </div>
   );
 }

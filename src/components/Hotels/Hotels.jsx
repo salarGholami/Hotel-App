@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import { useHotels } from "../context/HotelsProvider";
-import { it } from "date-fns/locale";
 
 function Hotels() {
   const { isLoading, hotels, currentHotel } = useHotels();

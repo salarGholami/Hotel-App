@@ -1,18 +1,18 @@
 import { useParams } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
 import Loader from "../Loader/Loader";
 import { useHotels } from "../context/HotelsProvider";
 import { useEffect } from "react";
 
 function SingleHotel() {
   const { id } = useParams();
-  const { currentHotel, getHotel, isLoadingCurrHotel } = useHotels();
+  const { getHotel, isLoadingCurrHotel, currentHotel } = useHotels();
 
   useEffect(() => {
     getHotel(id);
   }, [id]);
 
   if (isLoadingCurrHotel || !currentHotel) return <Loader />;
+
   return (
     <div className="room">
       <div className="roomDetail">
@@ -26,5 +26,4 @@ function SingleHotel() {
     </div>
   );
 }
-
 export default SingleHotel;

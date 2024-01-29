@@ -9,38 +9,36 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useGeoLocation from "../../hooks/useGeoLocation";
+import useUrlLocation from "../../hooks/useUrlLocation";
 
-function Map({ markerLoacation }) {
-  const [mapCenter, setMapCenter] = useState([50, 4]);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
-
+function Map({ markerLocations }) {
+  const [mapCenter, setMapCenter] = useState([20, 4]);
+  const [lat, lng] = useUrlLocation();
   const {
-    isLoading: isLoadongPosition,
-    position: getLocationPosition,
+    isLoading: isLoadingPosition,
+    position: geoLocationPosition,
     getPosition,
   } = useGeoLocation();
 
   useEffect(() => {
-    if (getLocationPosition?.lat && getLocationPosition?.lng)
-      return setMapCenter([getLocationPosition.lat, getLocationPosition.lng]);
-  }, [getLocationPosition]);
+    if (lat && lng) setMapCenter([lat, lng]);
+  }, [lat, lng]);
 
   useEffect(() => {
-    if (lat && lng) return setMapCenter([lat, lng]);
-  }, [lat, lng]);
+    if (geoLocationPosition?.lat && geoLocationPosition?.lng)
+      setMapCenter([geoLocationPosition.lat, geoLocationPosition.lng]);
+  }, [geoLocationPosition]);
 
   return (
     <div className="mapContainer">
       <MapContainer
         className="map"
         center={mapCenter}
-        zoom={13}
+        zoom={6}
         scrollWheelZoom={true}
       >
         <button onClick={getPosition} className="getLocation">
-          {isLoadongPosition ? "Loading ..." : "Use Your Location"}
+          {isLoadingPosition ? "Loading ..." : " Use Your Location"}
         </button>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -48,7 +46,7 @@ function Map({ markerLoacation }) {
         />
         <DetectClick />
         <ChangeCenter position={mapCenter} />
-        {markerLoacation.map((item) => (
+        {markerLocations.map((item) => (
           <Marker key={item.id} position={[item.latitude, item.longitude]}>
             <Popup>{item.host_location}</Popup>
           </Marker>
@@ -57,7 +55,6 @@ function Map({ markerLoacation }) {
     </div>
   );
 }
-
 export default Map;
 
 function ChangeCenter({ position }) {
@@ -69,9 +66,8 @@ function ChangeCenter({ position }) {
 function DetectClick() {
   const navigate = useNavigate();
   useMapEvent({
-    click: (e) => {
-      navigate(`/bookmark/add?lat=${e.latlng.lat}&lat=${e.latlng.lng}`);
-    },
+    click: (e) =>
+      navigate(`/bookmark/add?lat=${e.latlng.lat}&lng=${e.latlng.lng}`),
   });
   return null;
 }
