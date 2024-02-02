@@ -1341,24 +1341,6 @@
       "longitude": "50.15487179404759",
       "host_location": "Bu’in Zahra Iran (Islamic Republic of)",
       "id": 6
-    },
-    {
-      "cityName": "Abalessa",
-      "country": "Algeria",
-      "countryCode": "DZ",
-      "latitude": "21.814805024724585",
-      "longitude": "4.6034918364848",
-      "host_location": "Abalessa Algeria",
-      "id": 8
-    },
-    {
-      "cityName": "Chamwino",
-      "country": "Tanzania, the United Republic of",
-      "countryCode": "TZ",
-      "latitude": "-6.7343016964548985",
-      "longitude": "35.516088580144164",
-      "host_location": "Chamwino Tanzania, the United Republic of",
-      "id": 9
     }
   ]
 }

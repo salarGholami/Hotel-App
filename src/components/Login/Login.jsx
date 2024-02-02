@@ -1,13 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("user@Gmail.com");
+  const [password, setPassword] = useState("1234");
+
+  const navigate = useNavigate();
+  const { user, login, isAutenticated } = useAuth();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email && password) login(email, password);
+  };
+
+  useEffect(() => {
+    if (isAutenticated) navigate("/", { replace: true });
+  }, [isAutenticated, navigate]);
 
   return (
     <div className="loginContainer">
       <h2>Login</h2>
-      <form action="" className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <div className="formControl">
           <label htmlFor="email">Email</label>
           <input
